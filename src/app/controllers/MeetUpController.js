@@ -14,19 +14,16 @@ import File from '../models/File';
 
 class MeetUpController {
   async index(req, res) {
-    const where = {};
     const page = req.query.page || 1;
-
-    if (req.query.date) {
-      const searchDate = parseISO(req.query.date);
-
-      where.date = {
-        [Op.between]: [startOfDay(searchDate), endOfDay(searchDate)],
-      };
-    }
-
     const meetups = await Meetup.findAll({
-      where,
+      where: {
+        date: {
+          [Op.between]: [
+            startOfDay(parseISO(req.query.date)),
+            endOfDay(parseISO(req.query.date)),
+          ],
+        },
+      },
       include: [
         {
           model: User,

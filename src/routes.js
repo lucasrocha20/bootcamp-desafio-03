@@ -21,15 +21,16 @@ routes.use(authMiddleware);
 
 routes.put('/users', UserController.update); // Update user
 
-routes.get('/meetups', MeetUpController.index); // List MeetUp
+routes.get('/meetups/', MeetUpController.index); // List MeetUp
 routes.post('/meetups', MeetUpController.store); // Create MeetUp
-routes.put('/meetups/:id', MeetUpController.update); // Update MeetUp
+routes.put('/meetups?date:string', MeetUpController.update); // Update MeetUp
 routes.delete('/meetups/:id', MeetUpController.destroy); // Delete Meetup
 
 routes.get('/organizing', OrganizingController.index);
 
 routes.get('/subscription', SubscriptionController.index);
-routes.post('/subscription', SubscriptionController.store); // Subscription Meetup
+routes.post('/subscription/:id', SubscriptionController.store); // Subscription Meetup
+routes.delete('/subscription/:id', SubscriptionController.destroy);
 
 routes.post('/files', upload.single('file'), FileController.store); // Up File
 export default routes;
